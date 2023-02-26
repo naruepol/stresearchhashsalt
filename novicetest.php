@@ -1,10 +1,11 @@
 <?php
 // Novice Test
-include "Person.php";
-include "Connect.php";
+// include "Person.php";
+// include "Connect.php";
 
-$con = new connectDB();
-$p1 = new Person($con->connect());
+// $con = new connectDB();
+// $p1 = new Person($con->connect());
+
 // $p1->setDataToInsertAccount("2166","Somchai","somchai@myresearch.com","test","2");
 // show password encrypt by security type 2
 // echo "Pass : ".$p1->getEncryptPassword();
@@ -93,4 +94,25 @@ $p1 = new Person($con->connect());
 // $p1->setDataToInsertAccount("2167","Somsak","somsak@myresearch.com","test","1");
 // echo "<br>";
 // $p1->switchEncryptTypeUpdatePassword("1","2167","test");
+
+//random_bytes () function in PHP
+$length = random_bytes('4');
+ 
+//Print the result and convert by binaryhexa
+var_dump(bin2hex($length));
+
+echo "<br>";
+
+$salt = bin2hex($length);
+
+echo "<br>";
+
+echo "Salt : ".$salt;
+
+$pass = md5("lucky");
+echo "<br>";
+echo "Pass md5 : ".$pass;
+echo "<br>";
+$pass2 = md5("lucky".$salt);
+echo "Pass md5+salt :".$pass2;
 ?>

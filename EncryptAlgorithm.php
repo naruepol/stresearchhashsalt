@@ -1,8 +1,8 @@
 <?php
 interface EncryptAlgorithm
 {
-    public function encrypt($pwd);
-    public function verify($pwd, $epwd);
+    public function encrypt($pwd,$salt);
+    public function verify($pwd,$epwd,$salt);
 }
 
 ?>

@@ -13,6 +13,7 @@ class Person
     private $encrypt_passwd;   // from passwd
     private $security_type = "1";
     private $encrypt_strategy = NULL;  // (object type) consider from security_type
+    private $salt;
 
     // new object when add user (by admin) (validate data before register)
     // call before use method
@@ -44,7 +45,6 @@ class Person
     }
 
     // public for test only  // use private
-    // call by 
     // call by verifyEncrypt
     private function getPassword()
     {
@@ -64,6 +64,11 @@ class Person
     private function getSecurityType()
     {
         return $this->security_type;
+    }
+
+    private function getSalt()
+    {
+        return $this->salt;
     }
 
     // used by add account page
@@ -113,8 +118,9 @@ class Person
             'email' => $this->getUserEmail(),
             'epasswd' => $this->getEncryptPassword(),
             'st' => $this->getSecurityType(),
+            'salt' => $this->getSalt(),
         ];
-        $sql = "INSERT INTO person (user_id , user_name, user_email, encrypt_passwd, security_type) VALUES (:uid, :name, :email, :epasswd, :st)";
+        $sql = "INSERT INTO person (user_id , user_name, user_email, encrypt_passwd, security_type, user_salt) VALUES (:uid, :name, :email, :epasswd, :st, :salt)";
         try
         {
             $stmt= $this->db->prepare($sql);
@@ -169,8 +175,9 @@ class Person
             'uid' => $this->getUid(),
             'epasswd' => $this->getEncryptPassword(),
             'st' => $this->getSecurityType(),
+            'salt' => $this->getSalt(),
         ];
-        $sql = "UPDATE person SET encrypt_passwd=:epasswd, security_type=:st WHERE user_id=:uid";
+        $sql = "UPDATE person SET encrypt_passwd=:epasswd, security_type=:st, user_salt=:salt WHERE user_id=:uid";
         try
         {
             $stmt= $this->db->prepare($sql);
@@ -209,7 +216,9 @@ class Person
     // delegate method  
     private function performEncrypt()
     {
-        return $this->encrypt_strategy->encrypt($this->passwd);
+        $length = random_bytes('4');
+        $this->salt = bin2hex($length);
+        return $this->encrypt_strategy->encrypt($this->passwd,$this->salt);
     }
 
     // call by checkLogin
@@ -219,14 +228,14 @@ class Person
     private function verifyEncrypt(){
         if($this->getSecurityType() =="1"){
             $this->encrypt_strategy = new EncryptType1();
-            return $this->encrypt_strategy->verify($this->getPassword(),$this->getEncryptPassword());
+            return $this->encrypt_strategy->verify($this->getPassword(),$this->getEncryptPassword(),$this->getSalt());
         }else if($this->getSecurityType() =="2"){
             // echo "Password : ".$this->getPassword();
             $this->encrypt_strategy = new EncryptType2();
             // echo "<br>";
             // echo "Encrypt : ".$this->getEncryptPassword();
             // echo "<br>";
-            return $this->encrypt_strategy->verify($this->getPassword(),$this->getEncryptPassword());      
+            return $this->encrypt_strategy->verify($this->getPassword(),$this->getEncryptPassword(),$this->getSalt());      
         }
     }
 
@@ -253,6 +262,7 @@ class Person
             if(is_array($person) ) {
                 $this->encrypt_passwd = $person['encrypt_passwd'];
                 $this->security_type = $person['security_type'];
+                $this->salt = $person['user_salt'];
             }
 
             return true;

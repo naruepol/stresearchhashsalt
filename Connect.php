@@ -6,7 +6,7 @@ class ConnectDB
         $host = 'localhost';
         $user = 'root';
         $cpasswd = '';
-        $schema = 'organization';
+        $schema = 'orgsalt';
         $pdo = NULL;
         $dsn = 'mysql:host=' . $host . ';dbname=' . $schema;
         try
