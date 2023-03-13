@@ -45,8 +45,9 @@ class PersonTest extends TestCase {
     // }
 
     public function testCheckingLogin(){
-        $this->assertTrue($this->p1->checkLogin("somchai@myresearch.com","test"));
-        $this->assertTrue($this->p1->checkLogin("somsak@myresearch.com","test"));
+        $this->assertTrue($this->p1->checkLogin("lucky55@myresearch.com","12345"));
+        $this->assertTrue($this->p1->checkLogin("lucky6@myresearch.com","12345"));
+        //$this->assertTrue($this->p1->checkLogin("somsak@myresearch.com","test"));
     }
 
     // public function testAddingAccount(){

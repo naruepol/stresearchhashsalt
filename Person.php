@@ -206,6 +206,7 @@ class Person
         if($this->getPersonDataForVerify()==true){
             return $this->verifyEncrypt();
         }else{
+            echo "33";
             return false;
         }
 
@@ -228,6 +229,7 @@ class Person
     private function verifyEncrypt(){
         if($this->getSecurityType() =="1"){
             $this->encrypt_strategy = new EncryptType1();
+            echo "44";
             return $this->encrypt_strategy->verify($this->getPassword(),$this->getEncryptPassword(),$this->getSalt());
         }else if($this->getSecurityType() =="2"){
             // echo "Password : ".$this->getPassword();
@@ -235,7 +237,11 @@ class Person
             // echo "<br>";
             // echo "Encrypt : ".$this->getEncryptPassword();
             // echo "<br>";
+            echo "55";
             return $this->encrypt_strategy->verify($this->getPassword(),$this->getEncryptPassword(),$this->getSalt());      
+        } else {
+            echo "66";
+            return false;
         }
     }
 

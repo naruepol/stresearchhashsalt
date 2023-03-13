@@ -9,7 +9,8 @@ class EncryptType2 implements EncryptAlgorithm
     }
     public function verify($pwd,$epwd,$salt)
     {
-        if (md5($pwd.$salt) == $epwd){
+        $new_pwd = $this->encrypt($pwd,$salt);
+        if ($new_pwd == $epwd){
             return true;
          } else {
             return false;
