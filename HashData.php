@@ -26,6 +26,7 @@ class HashData
     public function hashByMd5($pwd)
     {
         $pwd_encypt = md5($pwd);
+        //echo "P5 :".$pwd_encypt;
         return $pwd_encypt;
     }
 
@@ -42,6 +43,7 @@ class HashData
     public function hashByMd5Salt($pwd,$salt)
     {
         $pwd_encypt = md5($pwd.$salt);
+        //echo "P5S :".$pwd_encypt;
         return $pwd_encypt;
     }
 
@@ -58,13 +60,13 @@ class HashData
     public function hashByBcrypt($pwd)
     {
         $pwd_encypt = password_hash($pwd, PASSWORD_BCRYPT);
+        //echo "PB :".$pwd_encypt;
         return $pwd_encypt;
     }
 
     public function verifyByBcrypt($pwd,$epwd)
     {
-        $new_pwd = password_hash($pwd, PASSWORD_BCRYPT);
-        if (password_verify($new_pwd,$epwd)){
+        if (password_verify($pwd,$epwd)){
             return true;
          } else {
             return false;
@@ -74,23 +76,15 @@ class HashData
     public function hashByBcryptSalt($pwd,$salt)
     {
         $this->salt = $salt;
-        $options = [
-            'cost' => 10,
-            'salt' => $this->salt,
-        ];
-        $pwd_encypt = password_hash($pwd, PASSWORD_BCRYPT, $option);
+        $pwd_encypt = password_hash($pwd.$this->salt, PASSWORD_BCRYPT);
+        //echo "PBS :".$pwd_encypt;
         return $pwd_encypt;
     }
 
     public function verifyByBcryptSalt($pwd,$epwd,$salt)
     {
-        $this->salt = $salt;
-        $options = [
-            'cost' => 10,
-            'salt' => $this->salt,
-        ];
-        $new_pwd = password_hash($pwd, PASSWORD_BCRYPT, $option);      
-        if (password_verify($new_pwd,$epwd)){
+        $this->salt = $salt;    
+        if (password_verify($pwd.$this->salt,$epwd)){
             return true;
          } else {
             return false;
@@ -99,25 +93,16 @@ class HashData
 
     public function hashByBcryptReSalt($pwd,$salt)
     {
-        $this->salt = $salt;
-        $this->salt = strrev($this->salt);
-        $options = [
-            'cost' => 10,
-            'salt' => $this->salt,
-        ];
-        $pwd_encypt = password_hash($pwd, PASSWORD_BCRYPT, $option);
+        $this->salt = strrev($salt);
+        $pwd_encypt = password_hash($pwd.$this->salt, PASSWORD_BCRYPT);
+       // echo "PBRS :".$pwd_encypt;
         return $pwd_encypt;
     }
 
     public function verifyByBcryptReSalt($pwd,$epwd,$salt)
     {
         $this->salt = strrev($salt);
-        $options = [
-            'cost' => 10,
-            'salt' => $this->salt,
-        ];
-        $new_pwd = password_hash($pwd, PASSWORD_BCRYPT, $option);
-        if (password_verify($new_pwd,$epwd)){
+        if (password_verify($pwd.$this->salt,$epwd)){
             return true;
          } else {
             return false;

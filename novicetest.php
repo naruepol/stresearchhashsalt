@@ -95,24 +95,50 @@
 // echo "<br>";
 // $p1->switchEncryptTypeUpdatePassword("1","2167","test");
 
-//random_bytes () function in PHP
-$length = random_bytes('4');
+// //random_bytes () function in PHP
+// $length = random_bytes('4');
  
-//Print the result and convert by binaryhexa
-var_dump(bin2hex($length));
+// //Print the result and convert by binaryhexa
+// var_dump(bin2hex($length));
 
-echo "<br>";
+// echo "<br>";
 
-$salt = bin2hex($length);
+// $salt = bin2hex($length);
 
-echo "<br>";
+// echo "<br>";
 
-echo "Salt : ".$salt;
+// echo "Salt : ".$salt;
 
-$pass = md5("lucky");
-echo "<br>";
-echo "Pass md5 : ".$pass;
-echo "<br>";
-$pass2 = md5("lucky".$salt);
-echo "Pass md5+salt :".$pass2;
+// $pass = md5("lucky");
+// echo "<br>";
+// echo "Pass md5 : ".$pass;
+// echo "<br>";
+// $pass2 = md5("lucky".$salt);
+// echo "Pass md5+salt :".$pass2;
+    $pwd = "test";
+    $length = random_bytes('4');
+    $salt = bin2hex($length);
+
+    $pwd_encypt = md5($pwd);
+    echo "P5 :".$pwd_encypt;
+    echo "<br>";
+
+    $pwd_encypt = md5($pwd.$salt);
+    echo "P5S :".$pwd_encypt;
+    echo "<br>";
+
+    $pwd_encypt = password_hash($pwd, PASSWORD_BCRYPT);
+    echo "PB :".$pwd_encypt;
+    echo "<br>";
+
+    $pwd_encypt = password_hash($pwd.$salt, PASSWORD_BCRYPT);
+    echo "PBS :".$pwd_encypt;
+    echo "<br>";
+
+    $salt = strrev($salt);
+    $pwd_encypt = password_hash($pwd.$salt, PASSWORD_BCRYPT);
+    echo "PBRS :".$pwd_encypt;
+    echo "<br>";
+
+
 ?>
