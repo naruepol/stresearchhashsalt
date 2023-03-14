@@ -14,7 +14,6 @@ class HashData
     public function hashByMd5($pwd)
     {
         $pwd_encypt = md5($pwd);
-        //echo "P5 :".$pwd_encypt;
         return $pwd_encypt;
     }
 
@@ -31,7 +30,6 @@ class HashData
     public function hashByMd5Salt($pwd,$salt)
     {
         $pwd_encypt = md5($pwd.$salt);
-        //echo "P5S :".$pwd_encypt;
         return $pwd_encypt;
     }
 
@@ -48,7 +46,6 @@ class HashData
     public function hashByBcrypt($pwd)
     {
         $pwd_encypt = password_hash($pwd, PASSWORD_BCRYPT);
-        //echo "PB :".$pwd_encypt;
         return $pwd_encypt;
     }
 
@@ -65,7 +62,6 @@ class HashData
     {
         $this->salt = $salt;
         $pwd_encypt = password_hash($pwd.$this->salt, PASSWORD_BCRYPT);
-        //echo "PBS :".$pwd_encypt;
         return $pwd_encypt;
     }
 
@@ -83,7 +79,6 @@ class HashData
     {
         $this->salt = strrev($salt);
         $pwd_encypt = password_hash($pwd.$this->salt, PASSWORD_BCRYPT);
-       // echo "PBRS :".$pwd_encypt;
         return $pwd_encypt;
     }
 
@@ -96,7 +91,4 @@ class HashData
             return false;
          }
     }
-
-
-
 }
