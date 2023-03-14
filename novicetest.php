@@ -2,6 +2,7 @@
 // Novice Test
 // include "Person.php";
 // include "Connect.php";
+include "HashData.php";
 
 // $con = new connectDB();
 // $p1 = new Person($con->connect());
@@ -115,30 +116,38 @@
 // echo "<br>";
 // $pass2 = md5("lucky".$salt);
 // echo "Pass md5+salt :".$pass2;
-    $pwd = "test";
-    $length = random_bytes('4');
-    $salt = bin2hex($length);
 
-    $pwd_encypt = md5($pwd);
-    echo "P5 :".$pwd_encypt;
-    echo "<br>";
 
-    $pwd_encypt = md5($pwd.$salt);
-    echo "P5S :".$pwd_encypt;
-    echo "<br>";
+    // $pwd = "test";
+    // $length = random_bytes('4');
+    // $salt = bin2hex($length);
 
-    $pwd_encypt = password_hash($pwd, PASSWORD_BCRYPT);
-    echo "PB :".$pwd_encypt;
-    echo "<br>";
+    // $pwd_encypt = md5($pwd);
+    // echo "P5 :".$pwd_encypt;
+    // echo "<br>";
 
-    $pwd_encypt = password_hash($pwd.$salt, PASSWORD_BCRYPT);
-    echo "PBS :".$pwd_encypt;
-    echo "<br>";
+    // $pwd_encypt = md5($pwd.$salt);
+    // echo "P5S :".$pwd_encypt;
+    // echo "<br>";
 
-    $salt = strrev($salt);
-    $pwd_encypt = password_hash($pwd.$salt, PASSWORD_BCRYPT);
-    echo "PBRS :".$pwd_encypt;
-    echo "<br>";
+    // $pwd_encypt = password_hash($pwd, PASSWORD_BCRYPT);
+    // echo "PB :".$pwd_encypt;
+    // echo "<br>";
+
+    // $pwd_encypt = password_hash($pwd.$salt, PASSWORD_BCRYPT);
+    // echo "PBS :".$pwd_encypt;
+    // echo "<br>";
+
+    // $salt = strrev($salt);
+    // $pwd_encypt = password_hash($pwd.$salt, PASSWORD_BCRYPT);
+    // echo "PBRS :".$pwd_encypt;
+    // echo "<br>";
+
+        $h1 = new HashData();
+        $password = "test";
+        $salt1 = $h1->createSaltA1();
+        echo "Salt1 :".$salt1;
+        echo "<br>";
 
 
 ?>

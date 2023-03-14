@@ -16,30 +16,30 @@ class HashTest extends TestCase {
         $this->assertTrue($this->h1->verifyByMd5($password,$encrypt_password));
     }
 
-    // public function testMd5withSalt(){
-    //     $password = "test";
-    //     $this->salt = $this->h1->createSaltA1();
-    //     $encrypt_password = $this->h1->hashByMd5Salt($password,$this->salt);
-    //     $this->assertTrue($this->h1->verifyByMd5Salt($password,$encrypt_password,$this->salt));
-    // }
+    public function testMd5withSalt(){
+        $password = "test";
+        $this->salt = $this->h1->createSaltA1();
+        $encrypt_password = $this->h1->hashByMd5Salt($password,$this->salt);
+        $this->assertTrue($this->h1->verifyByMd5Salt($password,$encrypt_password,$this->salt));
+    }
 
-    // public function testBcrypt(){
-    //     $password = "test";
-    //     $encrypt_password = $this->h1->hashByBcrypt($password);
-    //     $this->assertTrue($this->h1->verifyByBcrypt($password,$encrypt_password));
-    // }
+    public function testBcrypt(){
+        $password = "test";
+        $encrypt_password = $this->h1->hashByBcrypt($password);
+        $this->assertTrue($this->h1->verifyByBcrypt($password,$encrypt_password));
+    }
 
-    // public function testBcryptWithSalt(){
-    //     $password = "test";
-    //     $this->salt = $this->h1->createSaltA1();
-    //     $encrypt_password = $this->h1->hashByBcryptSalt($password,$this->salt);
-    //     $this->assertTrue($this->h1->verifyByBcryptSalt($password,$encrypt_password,$this->salt));
-    // }
+    public function testBcryptWithSalt(){
+        $password = "test";
+        $this->salt = $this->h1->createSaltA1();
+        $encrypt_password = $this->h1->hashByBcryptSalt($password,$this->salt);
+        $this->assertTrue($this->h1->verifyByBcryptSalt($password,$encrypt_password,$this->salt));
+    }
 
-    // public function testBcryptWithReSalt(){
-    //     $password = "test";
-    //     $this->salt = $this->h1->createSaltA1();
-    //     $encrypt_password = $this->h1->hashByBcryptReSalt($password,$this->salt);
-    //     $this->assertTrue($this->h1->verifyByBcryptReSalt($password,$encrypt_password,$this->salt));
-    // }
+    public function testBcryptWithReSalt(){
+        $password = "test";
+        $this->salt = $this->h1->createSaltA1();
+        $encrypt_password = $this->h1->hashByBcryptReSalt($password,$this->salt);
+        $this->assertTrue($this->h1->verifyByBcryptReSalt($password,$encrypt_password,$this->salt));
+    }
 }

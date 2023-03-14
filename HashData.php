@@ -4,24 +4,12 @@ class HashData
 {
     private $salt;
 
-    function __construct( )
-    {
-         
-    }
-
     public function createSaltA1()
     {
         $length = random_bytes('4');
         $this->salt = bin2hex($length);
         return $this->salt;
     }
-
-    private function createSaltA2()
-    {
-        $this->salt = mcrypt_create_iv(22, MCRYPT_DEV_URANDOM);
-        return $this->salt;
-    }
-
 
     public function hashByMd5($pwd)
     {
