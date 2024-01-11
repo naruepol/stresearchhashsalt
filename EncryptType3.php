@@ -1,15 +1,14 @@
 <?php
-class EncryptType2 implements EncryptAlgorithm
+class EncryptType3 implements EncryptAlgorithm
 {
     public function encrypt($pwd,$salt)
     {
-        $pwd_encypt = md5($pwd.$salt);
+        $pwd_encypt = password_hash($pwd.$salt, PASSWORD_ARGON2I);
         return $pwd_encypt;
     }
     public function verify($pwd,$epwd,$salt)
     {
-        $new_pwd = $this->encrypt($pwd,$salt);
-        if ($new_pwd == $epwd){
+        if (password_verify($pwd.$salt,$epwd)){
             return true;
          } else {
             return false;

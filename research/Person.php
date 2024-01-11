@@ -2,7 +2,6 @@
 include "EncryptAlgorithm.php";
 include "EncryptType1.php";
 include "EncryptType2.php";
-include "EncryptType3.php";
 
 class Person
 {
@@ -108,9 +107,6 @@ class Person
             case "2";
                 return new EncryptType2();
                 break;
-            case "3";
-                return new EncryptType3();
-                break;
         }
     }
 
@@ -149,9 +145,8 @@ class Person
             $this->encrypt_strategy = new EncryptType1();
         } else if($this->getSecurityType()==2){
             $this->encrypt_strategy = new EncryptType2();
-        } else if($this->getSecurityType()==3){
-            $this->encrypt_strategy = new EncryptType3();
         }
+
         // gen new_encrypt_passwd from new_password
         $this->encrypt_passwd = $this->performEncrypt();
         // check data befor implement
@@ -243,14 +238,6 @@ class Person
             // echo "Encrypt : ".$this->getEncryptPassword();
             // echo "<br>";
             echo "55";
-            return $this->encrypt_strategy->verify($this->getPassword(),$this->getEncryptPassword(),$this->getSalt());      
-        } else if($this->getSecurityType() =="3"){
-            // echo "Password : ".$this->getPassword();
-            $this->encrypt_strategy = new EncryptType3();
-            // echo "<br>";
-            // echo "Encrypt : ".$this->getEncryptPassword();
-            // echo "<br>";
-            echo "77";
             return $this->encrypt_strategy->verify($this->getPassword(),$this->getEncryptPassword(),$this->getSalt());      
         } else {
             echo "66";
